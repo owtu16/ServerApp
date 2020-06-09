@@ -1,6 +1,7 @@
 package com.project.servers.app.DAO;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +13,11 @@ public interface ServerDAO {
 	
 	public List<Server> findAll();
 	
-	public Integer count(Server server);
+	public Server findById(int id);
+	
+//	public Integer count(Server server);
+	
+	public HashMap<String, Long> count(int id);
 	
 	public void save(Server server);
 	

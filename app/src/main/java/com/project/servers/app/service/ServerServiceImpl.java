@@ -1,5 +1,6 @@
 package com.project.servers.app.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,12 +35,12 @@ public class ServerServiceImpl implements ServerService {
 		return serverDAO.findAll();
 	}
 
-	@Override
-	@Transactional
-	public Integer count(Server server) {
-		// TODO Auto-generated method stub
-		return serverDAO.count(server);
-	}
+//	@Override
+//	@Transactional
+//	public Integer count(Server server) {
+//		// TODO Auto-generated method stub
+//		return serverDAO.count(server);
+//	}
 
 	@Override
 	@Transactional
@@ -53,6 +54,20 @@ public class ServerServiceImpl implements ServerService {
 	public void deleteById(int id) {
 		// TODO Auto-generated method stub
 		serverDAO.deleteById(id);
+	}
+
+	@Override
+	@Transactional
+	public Server findById(int id) {
+		// TODO Auto-generated method stub
+		return serverDAO.findById(id);
+	}
+
+	@Override
+	@Transactional
+	public HashMap<String, Long> count(int id) {
+		// TODO Auto-generated method stub
+		return serverDAO.count(id);
 	}
 
 }
