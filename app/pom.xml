@@ -43,15 +43,15 @@
 		</dependency>
 		
 	<!-- Spring Boot Starter Security -->
-		<dependency>
+	 <!-- 	<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
+		</dependency> -->
 	<!-- Thymeleaf Extras Spring Security 5 -->
-		<dependency>
+	<!--  <dependency>
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
-		</dependency>
+		</dependency> -->
 	<!-- Spring Boot Devtools -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
