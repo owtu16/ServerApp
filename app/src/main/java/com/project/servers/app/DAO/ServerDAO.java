@@ -8,11 +8,11 @@ import com.project.servers.app.entity.Server;
 
 public interface ServerDAO {
 
-	public List<Server> findAllByLocation();
+	public List<Server> findAllByLocation(Server server);
 	
 	public List<Server> findAll();
 	
-	public Integer count();
+	public Integer count(Server server);
 	
 	public void save(Server server);
 	

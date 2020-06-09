@@ -7,12 +7,14 @@ import com.project.servers.app.entity.Server;
 
 public interface ServerService {
 
-	public List<Server> findAllByLocation();
+	public List<Server> findAllByLocation(Server server);
 	
 	public List<Server> findAll();
 	
-	public Map<?,?> findKeyValuePairs();
+	public Integer count(Server server);
 	
-	public Integer count();
+	public void save(Server server);
+	
+	public void deleteById(int id);
 	
 }
