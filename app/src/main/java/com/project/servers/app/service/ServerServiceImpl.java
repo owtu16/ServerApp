@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.project.servers.app.DAO.ServerDAO;
 import com.project.servers.app.entity.Server;
@@ -19,6 +20,7 @@ public class ServerServiceImpl implements ServerService {
 	}
 	
 	@Override
+	@Transactional
 	public List<Server> findAllByLocation(Server server) {
 		// TODO Auto-generated method stub
 		
@@ -26,24 +28,28 @@ public class ServerServiceImpl implements ServerService {
 	}
 
 	@Override
+	@Transactional
 	public List<Server> findAll() {
 		// TODO Auto-generated method stub
 		return serverDAO.findAll();
 	}
 
 	@Override
+	@Transactional
 	public Integer count(Server server) {
 		// TODO Auto-generated method stub
 		return serverDAO.count(server);
 	}
 
 	@Override
+	@Transactional
 	public void save(Server server) {
 		// TODO Auto-generated method stub
 		serverDAO.save(server);
 	}
 
 	@Override
+	@Transactional
 	public void deleteById(int id) {
 		// TODO Auto-generated method stub
 		serverDAO.deleteById(id);
