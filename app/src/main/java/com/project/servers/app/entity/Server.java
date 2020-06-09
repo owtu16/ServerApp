@@ -2,6 +2,9 @@ package com.project.servers.app.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
@@ -9,6 +12,10 @@ import javax.persistence.Table;
 public class Server {
 
 	// define fields
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
+	
 	@Column(name="ip_address")
 	private String ipAddress;
 	
@@ -28,6 +35,14 @@ public class Server {
 		this.ipAddress = ipAddress;
 		this.osDetails = osDetails;
 		this.location = location;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getIpAddress() {

@@ -1,7 +1,7 @@
 package com.project.servers.app.DAO;
 
 import java.util.List;
-import java.util.Map;
+
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -27,12 +27,6 @@ public class ServerDAOImpl implements ServerDAO {
 	}
 
 	@Override
-	public Map<?, ?> findKeyValuePairs() {
-		// 
-		return null;
-	}
-
-	@Override
 	public Integer count() {
 		// 
 		return null;
@@ -46,6 +40,19 @@ public class ServerDAOImpl implements ServerDAO {
 		List<Server> servers = q.getResultList();
 		// return the list
 		return servers;
+	}
+
+	@Override
+	public void save(Server server) {
+		// TODO Auto-generated method stub
+		Server dbserver = entityManager.merge(server);
+		
+	}
+
+	@Override
+	public void deleteById(int id) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
