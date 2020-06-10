@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+	crossorigin="anonymous">
+
+
+<title>Server List</title>
+</head>
+
+<body>
+
+<div class="container">
+		<h3>Servers Locations Available</h3>
+		<hr>
+
+		<table class="table table-bordered table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>Location</th>
+					<th>Number of Servers</th>
+					<th>View</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="tempServer : ${servers}">
+					<td th:text="${tempServer[0]}" />
+					<td th:text="${tempServer[1]}" />
+					<!-- Add update button/link -->
+					<td>
+					 	<a th:href="@{/servers/showServersByLocation(serverLocation=${tempServer[0]})}"
+						class="btn btn-info btn-sm">
+							List
+						</a> 
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+</body>
+
+
+</html>

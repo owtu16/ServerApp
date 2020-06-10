@@ -18,11 +18,11 @@ public class ServerDAOImpl implements ServerDAO {
 		this.entityManager = entityManager;
 	}
 	@Override
-	public List<Server> findAllByLocation(Server server) {
-		String location = server.getLocation();
-		String sql = "select s.ip_address from server_tb s where s.location =: serverLocation";
+	public List<Server> findAllByLocation(String location) {
+		String var_location = location;
+		String sql = "from Server s where s.location =: serverLocation";
 		Query q = entityManager.createQuery(sql);
-		q.setParameter("serverLocation", location);
+		q.setParameter("serverLocation", var_location);
 		List<Server> serverByLocation = q.getResultList();
 		return serverByLocation;
 	}
@@ -40,9 +40,12 @@ public class ServerDAOImpl implements ServerDAO {
 	@Override
 	public List<Server> findAll() {
 		// Create a query
-		Query q = entityManager.createQuery("from Server");
+//		String sql = "FROM Server s WHERE s.location = 'Palo Alto' OR s.location = 'Texas' OR s.location = 'New Jersey' ORDER BY s.location";
+		String sql = "From Server";
+		Query q = entityManager.createQuery(sql);
 		// Get result list
 		List<Server> servers = q.getResultList();
+		
 		// return the list
 		return servers;
 	}
@@ -81,6 +84,14 @@ public class ServerDAOImpl implements ServerDAO {
 		HashMap<String, Long> mapResult = new HashMap<>();
 		mapResult.put(serverLocation, result);
 		return mapResult;
+	}
+	@Override
+	public List<Server> findByLocation() {
+		// TODO Auto-generated method stub
+		String sql = "SELECT s.location, COUNT(*) AS total From Server s GROUP BY s.location";
+		Query q = entityManager.createQuery(sql);
+		List<Server> result = q.getResultList();
+		return result;
 	}
 	
 

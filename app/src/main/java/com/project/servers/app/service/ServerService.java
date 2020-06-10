@@ -8,7 +8,7 @@ import com.project.servers.app.entity.Server;
 
 public interface ServerService {
 
-	public List<Server> findAllByLocation(Server server);
+	public List<Server> findAllByLocation(String location);
 	
 	public List<Server> findAll();
 	
@@ -21,5 +21,7 @@ public interface ServerService {
 	public void save(Server server);
 	
 	public void deleteById(int id);
+
+	public List<Server> findByLocation();
 	
 }

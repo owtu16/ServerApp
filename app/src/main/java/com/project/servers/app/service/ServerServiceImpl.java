@@ -22,10 +22,10 @@ public class ServerServiceImpl implements ServerService {
 	
 	@Override
 	@Transactional
-	public List<Server> findAllByLocation(Server server) {
+	public List<Server> findAllByLocation(String location) {
 		// TODO Auto-generated method stub
 		
-		return serverDAO.findAllByLocation(server);
+		return serverDAO.findAllByLocation(location);
 	}
 
 	@Override
@@ -68,6 +68,12 @@ public class ServerServiceImpl implements ServerService {
 	public HashMap<String, Long> count(int id) {
 		// TODO Auto-generated method stub
 		return serverDAO.count(id);
+	}
+
+	@Override
+	public List<Server> findByLocation() {
+		// TODO Auto-generated method stub
+		return serverDAO.findByLocation();
 	}
 
 }

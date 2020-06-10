@@ -3,19 +3,23 @@ package com.project.servers.app.RestController;
 import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.servers.app.entity.Server;
 import com.project.servers.app.service.ServerService;
 
-@RestController
+@Controller
 @RequestMapping("/servers")
 public class ServerRestController {
 
@@ -24,66 +28,91 @@ public class ServerRestController {
 	public ServerRestController(ServerService serverService) {
 		this.serverService = serverService;
 	}
-	// needs to be @PathVariable int serverId and @GetMapping
-	@GetMapping("/count/{serverId}")
-	public HashMap<String, Long> count(@PathVariable int serverId){
-		HashMap<String, Long> map = serverService.count(serverId);
-		
-		return map;
-	}
-//	@GetMapping("/count")
-//	public Integer count(@RequestBody Server server) {
-//		Integer count = serverService.count(server);
-//		return count;
+	
+//	@GetMapping("/list")
+//	public String serverList(Model model) {
+//		List<Server> servers = serverService.findAll();
+//		
+//		model.addAttribute("servers",servers);
+//		
+//		return "/servers/list-servers";
 //	}
 	
-	// Returns all the servers from your database
-	@GetMapping("/displayAll")
-	public List<Server> findAll(){
-		return serverService.findAll();
+	@GetMapping("/showFormForAdd")
+	public String showFormForAdd(Model model) {
+		
+		Server server = new Server();
+		
+		model.addAttribute("server",server);
+		
+		return "/servers/server-form";
 	}
 	
-	@GetMapping("/servers/{serverId}")
-	public Server getServer(@PathVariable int serverId) {
-		Server server = serverService.findById(serverId);
+	@GetMapping("/showFormForUpdate")
+	public String showFormForUpdate(@RequestParam("serverId") int id, Model model) {
 		
-		if(server == null) {
-			throw new RuntimeException("Server id not found - " + serverId);
-		}
+		Server server = serverService.findById(id);
 		
-		return server;
+		model.addAttribute("server",server);
+		
+		return "/servers/server-form";
+		
 	}
 	
-	// Add a new server to your database
-	@PostMapping("/servers")
-	public Server addServer(@RequestBody Server server) {
-		
-		server.setId(0);
+	@PostMapping("/save")
+	public String saveEmployee(@ModelAttribute("employee") Server server) {
 		
 		serverService.save(server);
 		
-		return server;
+		return "redirect:/servers/list";
+		
 	}
 	
-	// Update a server from your database
-	@PutMapping("/servers")
-	public Server updateServer(@RequestBody Server server) {
-		serverService.save(server);
-		return server;
+	@GetMapping("/delete")
+	public String delete(@RequestParam("serverId") int id) {
+		
+		serverService.deleteById(id);
+		
+		return "redirect:/servers/list";
+//		return "redirect:/servers/servers-group";
 	}
-	// Deletes a server from your database, you must provide the serverId
-	@DeleteMapping("/servers/{serverId}")
-	public String deleteServer(@PathVariable int serverId) {
+	
+	@GetMapping("/list")
+	public String listByLocation(Model model) {
 		
+		List<Server> servers = serverService.findByLocation();
 		
-		Server tempServer = serverService.findById(serverId);
+		model.addAttribute("servers",servers);
 		
-		if(tempServer == null) {
-			throw new RuntimeException("Server id not found - " + serverId);
-		}
+		return "/servers/server-cluster";
 		
-		serverService.deleteById(serverId);
-		
-		return "Deleted server id - " + serverId;
 	}
+	
+	@GetMapping("/showServersByLocation")
+	public String serversList(@RequestParam("serverLocation") String location, Model model) {
+		
+//		model.addAttribute("location",location);
+		// returns a list of server objects based on location
+		List<Server> servers = serverService.findAllByLocation(location);
+		model.addAttribute("servers",servers);
+		return "/servers/servers-group";
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

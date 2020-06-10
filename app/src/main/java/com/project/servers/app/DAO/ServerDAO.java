@@ -9,7 +9,7 @@ import com.project.servers.app.entity.Server;
 
 public interface ServerDAO {
 
-	public List<Server> findAllByLocation(Server server);
+	public List<Server> findAllByLocation(String location);
 	
 	public List<Server> findAll();
 	
@@ -22,5 +22,7 @@ public interface ServerDAO {
 	public void save(Server server);
 	
 	public void deleteById(int id);
+
+	public List<Server> findByLocation();
 	
 }
