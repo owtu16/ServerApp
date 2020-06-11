@@ -21,7 +21,7 @@ import com.project.servers.app.service.ServerService;
 
 @Controller
 @RequestMapping("/servers")
-public class ServerRestController {
+public class ServerRestController{
 
 	private ServerService serverService;
 	

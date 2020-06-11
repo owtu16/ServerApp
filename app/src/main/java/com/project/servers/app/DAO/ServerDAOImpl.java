@@ -88,7 +88,7 @@ public class ServerDAOImpl implements ServerDAO {
 	@Override
 	public List<Server> findByLocation() {
 		// TODO Auto-generated method stub
-		String sql = "SELECT s.location, COUNT(*) AS total From Server s GROUP BY s.location";
+		String sql = "SELECT s.location, COUNT(*) AS total From Server s GROUP BY s.location ORDER BY s.location DESC";
 		Query q = entityManager.createQuery(sql);
 		List<Server> result = q.getResultList();
 		return result;

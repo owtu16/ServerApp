@@ -1,6 +1,8 @@
 <!DOCTYPE HTML>
 
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" 
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -24,6 +26,13 @@
 		<h3>Servers Available</h3>
 		<hr>
 		
+		<div>
+			User: <span sec:authentication="name"></span>
+			<br>
+			Role(s): <span sec:authentication="principal.authorities"></span>
+			<br><br>
+		</div>
+		
 		<!-- Add a button -->
 		
 		<a th:href="@{/servers/showFormForAdd}"
@@ -46,20 +55,34 @@
 					<td th:text="${tempServer.location}" />
 					<!-- Add update button/link -->
 					<td>
+						<div sec:authorize="hasAuthority('ROLE_EMPLOYEE')"> 
 						<a th:href="@{/servers/showFormForUpdate(serverId=${tempServer.id})}"
 						class="btn btn-info btn-sm">
 							Update
 						</a>
 						
+						</div> 
+						
+						<div sec:authorize="hasRole('ROLE_EMPLOYEE')"> 
 						<a th:href="@{/servers/delete(serverId=${tempServer.id})}"
 						class="btn btn-danger btn-sm"
 						onClick="if(!(confirm('Are you sure you want to delete this server?'))) return false">
 							Delete
 						</a>
+						</div> 
+						
 					</td>
 				</tr>
 			</tbody>
 		</table>
+		
+		<!-- Add a logout button -->
+	<form action="#" th:action="@{/logout}" 
+			   method="POST">
+	
+		<input type="submit" value="Logout" class="btn btn-outline-primary mt-2" />
+	
+	</form>
 
 	</div>
 </body>
