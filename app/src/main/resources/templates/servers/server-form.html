@@ -30,8 +30,12 @@
 			<input type="text" th:field="*{ipAddress}"
 					class="form-control mb-4 col-4" placeholder="IP Address">
 
-			<input type="text" th:field="*{osDetails}"
-					class="form-control mb-4 col-4" placeholder="Operating System">
+		<!--  	<input type="text" th:field="*{osDetails}"
+					class="form-control mb-4 col-4" placeholder="Operating System"> -->
+			<select id="osDetails" name="osDetails" th:field="*{osDetails}" class="form-control mb-4 col-4">
+				<option value="Windows">Windows</option>
+				<option value="Linux">Linux</option>
+			</select>
 
 			<input type="text" th:field="*{location}"
 					class="form-control mb-4 col-4" placeholder="Location">
