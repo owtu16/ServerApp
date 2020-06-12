@@ -54,3 +54,5 @@ INSERT INTO server_tb VALUES
 (18,'21.23.42.21','Windows','Texas'),
 (19,'92.22.48.21','Linux','New Jersey'),
 (20,'2.32.8.21','Windows','Texas');
+
+SELECT * FROM server_tb;
