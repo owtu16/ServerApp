@@ -59,12 +59,12 @@ public class ServerRestController{
 		
 	}
 	
-	@DeleteMapping("/delete")
-	public String delete(@RequestParam("serverId") int id) {
+	@DeleteMapping("/delete/{serverId}")
+	public String delete(@PathVariable(value="serverId") int id) {
 		
 		serverService.deleteById(id);
 		
-		return "redirect:/servers/list";
+		return "Server with id " + id + " has been deleted";
 //		return "redirect:/servers/servers-group";
 	}
 	
@@ -77,6 +77,12 @@ public class ServerRestController{
 		
 		return servers;
 		
+	}
+	
+	@GetMapping("/findAll")
+	public List<Server> findAll(){
+		List<Server> servers = serverService.findAll();
+		return servers;
 	}
 	
 	@GetMapping("/showServersByLocation/{location}")
