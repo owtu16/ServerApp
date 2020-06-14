@@ -29,15 +29,6 @@ public class ServerRestController{
 		this.serverService = serverService;
 	}
 	
-//	@GetMapping("/list")
-//	public String serverList(Model model) {
-//		List<Server> servers = serverService.findAll();
-//		
-//		model.addAttribute("servers",servers);
-//		
-//		return "/servers/list-servers";
-//	}
-	
 	@GetMapping("/showFormForAdd")
 	public String showFormForAdd(Model model) {
 		
@@ -59,8 +50,8 @@ public class ServerRestController{
 		
 	}
 	
-	@PostMapping("/save")
-	public String saveEmployee(@ModelAttribute("employee") Server server) {
+	@PostMapping("/save") //
+	public String saveServer(@ModelAttribute("server") Server server) {
 		
 		serverService.save(server);
 		
