@@ -59,7 +59,7 @@ public class ServerRestController{
 		
 	}
 	
-	@GetMapping("/delete")
+	@DeleteMapping("/delete")
 	public String delete(@RequestParam("serverId") int id) {
 		
 		serverService.deleteById(id);
@@ -79,14 +79,14 @@ public class ServerRestController{
 		
 	}
 	
-	@GetMapping("/showServersByLocation")
-	public String serversList(@RequestParam("serverLocation") String location, Model model) {
+	@GetMapping("/showServersByLocation/{location}")
+	public List<Server> serversList(@PathVariable(value="location") String location, Model model) {
 		
-//		model.addAttribute("location",location);
 		// returns a list of server objects based on location
 		List<Server> servers = serverService.findAllByLocation(location);
 		model.addAttribute("servers",servers);
-		return "/servers/servers-group";
+//		return "/servers/servers-group";
+		return servers;
 	}
 	
 }
