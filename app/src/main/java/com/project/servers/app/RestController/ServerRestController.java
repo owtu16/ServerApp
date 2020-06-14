@@ -60,7 +60,7 @@ public class ServerRestController{
 	}
 	
 	@PostMapping("/save")
-	public String saveEmployee(@ModelAttribute("employee") Server server) {
+	public String saveServer(@ModelAttribute("server") Server server) {
 		
 		serverService.save(server);
 		
