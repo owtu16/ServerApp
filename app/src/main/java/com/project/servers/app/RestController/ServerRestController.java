@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.servers.app.entity.Server;
 import com.project.servers.app.service.ServerService;
 
-@Controller
+@RestController
 @RequestMapping("/servers")
 public class ServerRestController{
 
@@ -69,13 +69,13 @@ public class ServerRestController{
 	}
 	
 	@GetMapping("/list")
-	public String listByLocation(Model model) {
+	public List<Server> listByLocation(Model model) {
 		
 		List<Server> servers = serverService.findByLocation();
 		
 		model.addAttribute("servers",servers);
 		
-		return "/servers/server-cluster";
+		return servers;
 		
 	}
 	
