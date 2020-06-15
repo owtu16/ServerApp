@@ -76,4 +76,11 @@ public class ServerServiceImpl implements ServerService {
 		return serverDAO.findByLocation();
 	}
 
+	@Override
+	public void delete(String ipAddress) {
+		// TODO Auto-generated method stub
+		serverDAO.delete(ipAddress);
+		
+	}
+
 }

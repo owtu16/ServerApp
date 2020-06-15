@@ -17,11 +17,13 @@ public interface ServerDAO {
 	
 //	public Integer count(Server server);
 	
-	public HashMap<String, Long> count(int id);
+	public HashMap<String, Long> count(int id); // might use later
 	
 	public void save(Server server);
 	
 	public void deleteById(int id);
+	
+	public void delete(String ipAddress); // delete by passing ip address
 
 	public List<Server> findByLocation();
 	

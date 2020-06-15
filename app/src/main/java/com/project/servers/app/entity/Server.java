@@ -12,9 +12,6 @@ import javax.persistence.Table;
 public class Server {
 
 	// define fields
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
 	
 	
 	@Column(name="ip_address")
@@ -38,13 +35,7 @@ public class Server {
 		this.location = location;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
+	
 
 	public String getIpAddress() {
 		return ipAddress;

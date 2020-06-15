@@ -21,6 +21,8 @@ public interface ServerService {
 	public void save(Server server);
 	
 	public void deleteById(int id);
+	
+	public void delete(String ipAddress);
 
 	public List<Server> findByLocation();
 	

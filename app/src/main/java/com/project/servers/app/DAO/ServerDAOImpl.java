@@ -26,17 +26,7 @@ public class ServerDAOImpl implements ServerDAO {
 		List<Server> serverByLocation = q.getResultList();
 		return serverByLocation;
 	}
-//	@Override
-//	public Integer count(Server server) {
-		// counts the number of servers at a particular location: only 3 locations are available
-		// Palo Alto, Texas, and New Jersey
-//		String sql = "select count(*) from server_tb s where s.location =: serverLocation";
-		
-//		Query q = entityManager.createQuery(sql);
-//		q.setParameter("serverLocation", server.getLocation());
-//		Integer result = (Integer) q.getSingleResult();
-//		return result;
-//	}
+
 	@Override
 	public List<Server> findAll() {
 		// Create a query
@@ -53,8 +43,9 @@ public class ServerDAOImpl implements ServerDAO {
 	public void save(Server server) {
 		// save or update the server
 		Server dbserver = entityManager.merge(server);
-		// update with id from db, so we can get generated id for save/insert
-		server.setId(dbserver.getId());
+		// update with ip address from server
+//		
+		server.setIpAddress(dbserver.getIpAddress());
 	}
 	@Override
 	public void deleteById(int id) {
@@ -92,6 +83,15 @@ public class ServerDAOImpl implements ServerDAO {
 		Query q = entityManager.createQuery(sql);
 		List<Server> result = q.getResultList();
 		return result;
+	}
+	@Override
+	public void delete(String ipAddress) {
+		// Passes ip address to delete 
+		Query q = entityManager.createQuery("delete from Server where ipAddress =: ip_address");
+		
+		q.setParameter("ip_address", ipAddress);
+		
+		q.executeUpdate();
 	}
 	
 
