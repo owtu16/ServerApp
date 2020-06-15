@@ -11,6 +11,7 @@ import com.project.servers.app.DAO.ServerDAO;
 import com.project.servers.app.entity.Server;
 
 @Service
+@Transactional
 public class ServerServiceImpl implements ServerService {
 
 	private ServerDAO serverDAO;
@@ -21,7 +22,7 @@ public class ServerServiceImpl implements ServerService {
 	}
 	
 	@Override
-	@Transactional
+//	@Transactional
 	public List<Server> findAllByLocation(String location) {
 		// TODO Auto-generated method stub
 		
@@ -29,7 +30,7 @@ public class ServerServiceImpl implements ServerService {
 	}
 
 	@Override
-	@Transactional
+//	@Transactional
 	public List<Server> findAll() {
 		// TODO Auto-generated method stub
 		return serverDAO.findAll();
@@ -43,7 +44,7 @@ public class ServerServiceImpl implements ServerService {
 //	}
 
 	@Override
-	@Transactional
+//	@Transactional
 	public void save(Server server) {
 		// TODO Auto-generated method stub
 		serverDAO.save(server);
@@ -57,14 +58,14 @@ public class ServerServiceImpl implements ServerService {
 	}
 
 	@Override
-	@Transactional
+//	@Transactional
 	public Server findById(int id) {
 		// TODO Auto-generated method stub
 		return serverDAO.findById(id);
 	}
 
 	@Override
-	@Transactional
+//	@Transactional
 	public HashMap<String, Long> count(int id) {
 		// TODO Auto-generated method stub
 		return serverDAO.count(id);
