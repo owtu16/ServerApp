@@ -10,7 +10,7 @@ import com.project.servers.app.DAO.ServerRepository;
 import com.project.servers.app.entity.Server;
 
 @Service
-public class ServerServImpl {
+public class ServerServImpl implements ServerServ{
 
 	@Autowired
 	ServerRepository serverRepository;
