@@ -7,11 +7,11 @@ import com.project.servers.app.entity.Server;
 
 public interface ServerServ {
 
-	public String save(Server server) throws Exception;
+	public void save(Server server) throws Exception;
 	
-	public String update(Server server) throws Exception;
+	public void update(Server server) throws Exception;
 	
-	public String delete(String ipAddress) throws Exception;
+	public void delete(String ipAddress) throws Exception;
 	
 	public List<Server> findAll() throws Exception;
 	
