@@ -13,7 +13,7 @@ public class Server {
 
 	// define fields
 	
-	
+	@Id
 	@Column(name="ip_address")
 	private String ipAddress;
 	

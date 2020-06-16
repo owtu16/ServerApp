@@ -26,5 +26,7 @@ public interface ServerDAO {
 	public void delete(String ipAddress); // delete by passing ip address
 
 	public List<Server> findByLocation();
+
+	public void update(Server server);
 	
 }

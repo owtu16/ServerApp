@@ -3,7 +3,6 @@ package com.project.servers.app.DAO;
 import java.util.HashMap;
 import java.util.List;
 
-
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -14,9 +13,11 @@ import com.project.servers.app.entity.Server;
 @Repository
 public class ServerDAOImpl implements ServerDAO {
 	EntityManager entityManager;
+
 	public ServerDAOImpl(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
+
 	@Override
 	public List<Server> findAllByLocation(String location) {
 		String var_location = location;
@@ -35,10 +36,11 @@ public class ServerDAOImpl implements ServerDAO {
 		Query q = entityManager.createQuery(sql);
 		// Get result list
 		List<Server> servers = q.getResultList();
-		
+
 		// return the list
 		return servers;
 	}
+
 	@Override
 	public void save(Server server) {
 		// save or update the server
@@ -47,22 +49,25 @@ public class ServerDAOImpl implements ServerDAO {
 //		
 		server.setIpAddress(dbserver.getIpAddress());
 	}
+
 	@Override
 	public void deleteById(int id) {
 		// delete object with primary key
 		Query q = entityManager.createQuery("delete from Server where id =: serverId");
-		
+
 		q.setParameter("serverId", id);
-		
+
 		q.executeUpdate();
 	}
+
 	@Override
 	public Server findById(int id) {
 		// TODO Auto-generated method stub
 		Server server = entityManager.find(Server.class, id);
-		
+
 		return server;
 	}
+
 	@Override
 	public HashMap<String, Long> count(int id) {
 		// TODO Auto-generated method stub
@@ -76,6 +81,7 @@ public class ServerDAOImpl implements ServerDAO {
 		mapResult.put(serverLocation, result);
 		return mapResult;
 	}
+
 	@Override
 	public List<Server> findByLocation() {
 		// TODO Auto-generated method stub
@@ -84,15 +90,25 @@ public class ServerDAOImpl implements ServerDAO {
 		List<Server> result = q.getResultList();
 		return result;
 	}
+
 	@Override
 	public void delete(String ipAddress) {
-		// Passes ip address to delete 
+		// Passes ip address to delete
 		Query q = entityManager.createQuery("delete from Server where ipAddress =: ip_address");
-		
+
 		q.setParameter("ip_address", ipAddress);
-		
+
 		q.executeUpdate();
 	}
-	
+
+	@Override
+	public void update(Server server) {
+		// save or update the server
+		Server dbserver = entityManager.merge(server);
+		// update with ip address from server
+//				
+		server.setIpAddress(dbserver.getIpAddress());
+
+	}
 
 }

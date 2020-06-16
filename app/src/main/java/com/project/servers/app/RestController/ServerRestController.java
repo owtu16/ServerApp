@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.servers.app.entity.Server;
 import com.project.servers.app.service.ServerService;
 
+//@CrossOrigin
 @RestController
 @RequestMapping("/servers")
 public class ServerRestController{
@@ -49,8 +51,14 @@ public class ServerRestController{
 		return "/servers/server-form";
 		
 	}
+	@PutMapping("/update")
+	public String updateServer(@ModelAttribute("server") Server server) {
+		serverService.update(server);
+		
+		return "redirect:/servers/list";
+	}
 	
-	@PostMapping("/save") //
+	@PostMapping("/save") 
 	public String saveServer(@ModelAttribute("server") Server server) {
 		
 		serverService.save(server);
@@ -58,17 +66,19 @@ public class ServerRestController{
 		return "redirect:/servers/list";
 		
 	}
+	// deletes server by passing the IP Address
+	@DeleteMapping("/delete/{ipAddress}")
+	public String delete(@PathVariable(value="ipAddress") String ip_address) {
+		
 	
-	@DeleteMapping("/delete/{serverId}")
-	public String delete(@PathVariable(value="serverId") int id) {
+		serverService.delete(ip_address);
 		
-		serverService.deleteById(id);
 		
-		return "Server with id " + id + " has been deleted";
-//		return "redirect:/servers/servers-group";
+		return "Server with id " + ip_address + " has been deleted";
+//		
 	}
-	
-	@GetMapping("/list")
+	// returns cluster of servers with location and # of servers at that particular location
+	@GetMapping("/cluster")
 	public List<Server> listByLocation(Model model) {
 		
 		List<Server> servers = serverService.findByLocation();
@@ -78,13 +88,13 @@ public class ServerRestController{
 		return servers;
 		
 	}
-	
+	// finds all servers regardless of location
 	@GetMapping("/findAll")
 	public List<Server> findAll(){
 		List<Server> servers = serverService.findAll();
 		return servers;
 	}
-	
+	// find servers depending on their location
 	@GetMapping("/showServersByLocation/{location}")
 	public List<Server> serversList(@PathVariable(value="location") String location, Model model) {
 		

@@ -25,5 +25,7 @@ public interface ServerService {
 	public void delete(String ipAddress);
 
 	public List<Server> findByLocation();
+
+	public void update(Server server);
 	
 }
