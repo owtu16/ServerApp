@@ -42,19 +42,24 @@ public class ServerRestController {
 
 	}
 
-	@PutMapping("/update/{ip}")
+	@PutMapping("/update")
 //	public String updateServer(@ModelAttribute("server") Server server) throws Exception {
-	public void updateServer(@PathVariable(value="ip") String ipAddress, @RequestBody Server server) throws Exception {
+	public void updateServer(@RequestBody Server server) throws Exception {
 		try {
-			Server dbserver = serverService.findByIp(ipAddress);
-			if(dbserver == null) {
+			Integer id = server.getId();
+			
+			Server dbserver = serverService.findById(id);
+			
+		
+			if(dbserver == null)
 				throw new Exception("Server not found");
-			}
+//			
+//			String ip = dbserver.getIpAddress();
 			dbserver.setIpAddress(server.getIpAddress());
 			dbserver.setLocation(server.getLocation());
 			dbserver.setOsDetails(server.getOsDetails());
-			
-			serverService.update(server);
+			System.out.println(dbserver);
+			serverService.update(dbserver);
 
 //			return "redirect:/servers/findall";
 		} catch (Exception e) {
@@ -98,8 +103,7 @@ public class ServerRestController {
 
 			return servers;
 		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Hello world");
+			
 			throw new Exception("Error");
 		}
 

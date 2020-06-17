@@ -56,9 +56,9 @@ public class ServerServiceImpl implements ServerService {
 	}
 
 	@Override
-	public Server findByIp(String ipAddress) throws Exception {
+	public Server findById(Integer id) throws Exception {
 		
-		return serverDAO.findByIp(ipAddress);
+		return serverDAO.findById(id);
 	}
 
 	

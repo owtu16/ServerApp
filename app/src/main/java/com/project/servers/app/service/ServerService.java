@@ -27,6 +27,6 @@ public interface ServerService {
 		public List<Server> findAllByLocation(String location) throws Exception;
 		
 		// finds a server by looking for its IP Address
-		public Server findByIp(String ipAddress) throws Exception;
+		public Server findById(Integer id) throws Exception;
 	
 }

@@ -69,6 +69,14 @@ public class Server {
 	public String toString() {
 		return "Server [ipAddress=" + ipAddress + ", osDetails=" + osDetails + ", location=" + location + "]";
 	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	
 	
 	

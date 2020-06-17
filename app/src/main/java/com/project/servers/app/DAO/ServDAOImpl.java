@@ -1,6 +1,7 @@
 package com.project.servers.app.DAO;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -10,8 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.project.servers.app.entity.Server;
+
 @Repository("servDAO")
-public class ServDAOImpl implements ServerDAO{
+public class ServDAOImpl implements ServerDAO {
 
 	@Autowired
 	EntityManager entityManager;
@@ -20,8 +22,7 @@ public class ServDAOImpl implements ServerDAO{
 	public void save(Server server) {
 		// save or update the server
 		Server dbserver = entityManager.merge(server);
-		
-		
+
 		// update with ip address from server
 
 //		server.setIpAddress(dbserver.getIpAddress());
@@ -31,7 +32,7 @@ public class ServDAOImpl implements ServerDAO{
 	@Override
 	public void update(Server server) {
 		// save or update the server
-		
+
 //		Server dbserver = entityManager.find(Server.class, server.getIpAddress());
 		Server dbserver = entityManager.merge(server);
 		// update with ip address from server
@@ -66,32 +67,35 @@ public class ServDAOImpl implements ServerDAO{
 
 	@Override
 	public HashMap<String, Long> findCluster() {
-		
-		String sql = "SELECT s.location, COUNT(*) AS total FROM Server s GROUP BY s.location ORDER BY s.location DESC";
-		
-		Query q = entityManager.createQuery(sql);
-		
-		HashMap<String, Long> clusters = (HashMap<String, Long>) q.getResultList();
-//		List<String> locationList = null;
-//		List<Long> numberOfServersAtLocation = null;
+
+//		String sql = "SELECT s.location, COUNT(*) AS total FROM Server s GROUP BY s.location ORDER BY s.location DESC";
 //		
-//		String sqlLocation = "SELECT s.location FROM Server s GROUP BY s.location ORDER BY s.location DESC";
-//		Query qLocation = entityManager.createQuery(sqlLocation);
+//		Query q = entityManager.createQuery(sql);
 //		
-//		String sqlNumberOfServers = "SELECT COUNT(*) AS total FROM Server s GROUP BY s.location ORDER BY s.location DESC";
-//		Query qNumberOfServers = entityManager.createQuery(sqlNumberOfServers);
-//		
-//		locationList = qLocation.getResultList();
-//		numberOfServersAtLocation = qNumberOfServers.getResultList();
-//		
-//		HashMap<Server,Long> cluster = new HashMap<>();
-//		
-//		if(cluster.isEmpty()) {
-//			for (Long long1 : numberOfServersAtLocation) {
-//				
-//			}
-//		}
-		return clusters;
+//		HashMap<String, Long> clusters = (HashMap<String, Long>) q.getResultList();
+		List<String> locationList = null;
+		List<Long> numberOfServersAtLocation = null;
+
+		String sqlLocation = "SELECT s.location FROM Server s GROUP BY s.location ORDER BY s.location DESC";
+		Query qLocation = entityManager.createQuery(sqlLocation);
+
+		String sqlNumberOfServers = "SELECT COUNT(*) AS total FROM Server s GROUP BY s.location ORDER BY s.location DESC";
+		Query qNumberOfServers = entityManager.createQuery(sqlNumberOfServers);
+
+		locationList = qLocation.getResultList();
+		numberOfServersAtLocation = qNumberOfServers.getResultList();
+
+		Iterator<String> i1 = locationList.iterator();
+		Iterator<Long> i2 = numberOfServersAtLocation.iterator();
+
+		HashMap<String, Long> cluster = new HashMap<>();
+
+		while (i1.hasNext() && i2.hasNext()) {
+			cluster.put(i1.next(), i2.next());
+		}
+
+		return cluster;
+
 	}
 
 	@Override
@@ -106,9 +110,9 @@ public class ServDAOImpl implements ServerDAO{
 	}
 
 	@Override
-	public Server findByIp(String ipAddress) {
+	public Server findById(Integer id) {
 		// returns a server by looking for its IP address
-		Server server = entityManager.find(Server.class, ipAddress);
+		Server server = entityManager.find(Server.class, id);
 		return server;
 	}
 

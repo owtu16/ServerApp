@@ -27,7 +27,7 @@ public interface ServerDAO {
 	public List<Server> findAllByLocation(String location);
 	
 	// finds a server by looking for its IP Address
-	public Server findByIp(String ipAddress);
+	public Server findById(Integer id);
 
 	
 	
