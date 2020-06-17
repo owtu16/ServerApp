@@ -8,25 +8,27 @@ import java.util.Map;
 import com.project.servers.app.entity.Server;
 
 public interface ServerDAO {
-
-	public List<Server> findAllByLocation(String location);
-	
-	public List<Server> findAll();
-	
-	public Server findById(int id);
-	
-//	public Integer count(Server server);
-	
-	public HashMap<String, Long> count(int id); // might use later
-	
+	// saves a server
 	public void save(Server server);
 	
-	public void deleteById(int id);
-	
-	public void delete(String ipAddress); // delete by passing ip address
-
-	public List<Server> findByLocation();
-
+	// updates a server
 	public void update(Server server);
+	
+	// deletes a server
+	public void delete(String ipAddress); // delete by passing ip address
+	
+	// finds all servers, regardless of location
+	public List<Server> findAll();
+	
+	// finds cluster, will list location and number of servers at that location
+	public HashMap<String,Long> findCluster();
+	
+	// returns all servers found at a particular location
+	public List<Server> findAllByLocation(String location);
+	
+	// finds a server by looking for its IP Address
+	public Server findByIp(String ipAddress);
+
+	
 	
 }

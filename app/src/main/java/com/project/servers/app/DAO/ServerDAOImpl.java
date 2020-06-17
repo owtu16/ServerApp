@@ -46,50 +46,50 @@ public class ServerDAOImpl implements ServerDAO {
 		// save or update the server
 		Server dbserver = entityManager.merge(server);
 		// update with ip address from server
-//		
+		
 		server.setIpAddress(dbserver.getIpAddress());
 	}
 
-	@Override
-	public void deleteById(int id) {
-		// delete object with primary key
-		Query q = entityManager.createQuery("delete from Server where id =: serverId");
+//	@Override
+//	public void deleteById(int id) {
+//		// delete object with primary key
+//		Query q = entityManager.createQuery("delete from Server where id =: serverId");
+//
+//		q.setParameter("serverId", id);
+//
+//		q.executeUpdate();
+//	}
 
-		q.setParameter("serverId", id);
+//	@Override
+//	public Server findById(int id) {
+//		// TODO Auto-generated method stub
+//		Server server = entityManager.find(Server.class, id);
+//
+//		return server;
+//	}
 
-		q.executeUpdate();
-	}
+//	@Override
+//	public HashMap<String, Long> count(int id) {
+//		// TODO Auto-generated method stub
+//		Server server = entityManager.find(Server.class, id);
+//		String serverLocation = server.getLocation();
+//		String sql = "SELECT COUNT(*) FROM Server s WHERE s.location =: serverLocation";
+//		Query q = entityManager.createQuery(sql);
+//		q.setParameter("serverLocation", serverLocation);
+//		Long result = (Long) q.getSingleResult();
+//		HashMap<String, Long> mapResult = new HashMap<>();
+//		mapResult.put(serverLocation, result);
+//		return mapResult;
+//	}
 
-	@Override
-	public Server findById(int id) {
-		// TODO Auto-generated method stub
-		Server server = entityManager.find(Server.class, id);
-
-		return server;
-	}
-
-	@Override
-	public HashMap<String, Long> count(int id) {
-		// TODO Auto-generated method stub
-		Server server = entityManager.find(Server.class, id);
-		String serverLocation = server.getLocation();
-		String sql = "SELECT COUNT(*) FROM Server s WHERE s.location =: serverLocation";
-		Query q = entityManager.createQuery(sql);
-		q.setParameter("serverLocation", serverLocation);
-		Long result = (Long) q.getSingleResult();
-		HashMap<String, Long> mapResult = new HashMap<>();
-		mapResult.put(serverLocation, result);
-		return mapResult;
-	}
-
-	@Override
-	public List<Server> findByLocation() {
-		// TODO Auto-generated method stub
-		String sql = "SELECT s.location, COUNT(*) AS total From Server s GROUP BY s.location ORDER BY s.location DESC";
-		Query q = entityManager.createQuery(sql);
-		List<Server> result = q.getResultList();
-		return result;
-	}
+//	@Override
+//	public List<Server> findByLocation() {
+//		// TODO Auto-generated method stub
+//		String sql = "SELECT s.location, COUNT(*) AS total From Server s GROUP BY s.location ORDER BY s.location DESC";
+//		Query q = entityManager.createQuery(sql);
+//		List<Server> result = q.getResultList();
+//		return result;
+//	}
 
 	@Override
 	public void delete(String ipAddress) {
@@ -109,6 +109,18 @@ public class ServerDAOImpl implements ServerDAO {
 //				
 		server.setIpAddress(dbserver.getIpAddress());
 
+	}
+
+	@Override
+	public HashMap<String, Long> findCluster() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Server findByIp(String ipAddress) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
