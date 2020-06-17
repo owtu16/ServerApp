@@ -13,82 +13,50 @@ import com.project.servers.app.entity.Server;
 @Service
 @Transactional
 public class ServerServiceImpl implements ServerService {
-
-	private ServerDAO serverDAO;
-	
 	@Autowired
-	public ServerServiceImpl(ServerDAO serverDAO) {
-		this.serverDAO = serverDAO;
+	private ServerDAO serverDAO;
+
+	@Override
+	public void save(Server server) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
+
+	@Override
+	public void update(Server server) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(String ipAddress) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Server> findAll() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public HashMap<String, Long> findCluster() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Server> findAllByLocation(String location) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Server findByIp(String ipAddress) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
-	@Override
-//	@Transactional
-	public List<Server> findAllByLocation(String location) {
-		// TODO Auto-generated method stub
-		
-		return serverDAO.findAllByLocation(location);
-	}
-
-	@Override
-//	@Transactional
-	public List<Server> findAll() {
-		// TODO Auto-generated method stub
-		return serverDAO.findAll();
-	}
-
-//	@Override
-//	@Transactional
-//	public Integer count(Server server) {
-//		// TODO Auto-generated method stub
-//		return serverDAO.count(server);
-//	}
-
-	@Override
-//	@Transactional
-	public void save(Server server) {
-		// TODO Auto-generated method stub
-		serverDAO.save(server);
-	}
-
-	@Override
-//	@Transactional
-	public void deleteById(int id) {
-		// TODO Auto-generated method stub
-		serverDAO.deleteById(id);
-	}
-
-	@Override
-//	@Transactional
-	public Server findById(int id) {
-		// TODO Auto-generated method stub
-		return serverDAO.findById(id);
-	}
-
-	@Override
-//	@Transactional
-	public HashMap<String, Long> count(int id) {
-		// TODO Auto-generated method stub
-		return serverDAO.count(id);
-	}
-
-	@Override
-	public List<Server> findByLocation() {
-		// TODO Auto-generated method stub
-		return serverDAO.findByLocation();
-	}
-
-	@Override
-	public void delete(String ipAddress) {
-		// TODO Auto-generated method stub
-		serverDAO.delete(ipAddress);
-		
-	}
-
-	@Override
-	public void update(Server server) {
-		// TODO Auto-generated method stub
-		serverDAO.update(server);
-		
-	}
-
 }

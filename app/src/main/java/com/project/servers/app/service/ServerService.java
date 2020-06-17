@@ -8,24 +8,25 @@ import com.project.servers.app.entity.Server;
 
 public interface ServerService {
 
-	public List<Server> findAllByLocation(String location);
-	
-	public List<Server> findAll();
-	
-	public Server findById(int id);
-	
-//	public Integer count(Server server);
-	
-	public HashMap<String, Long> count(int id);
-	
-	public void save(Server server);
-	
-	public void deleteById(int id);
-	
-	public void delete(String ipAddress);
-
-	public List<Server> findByLocation();
-
-	public void update(Server server);
+	// saves a server
+		public void save(Server server) throws Exception;
+		
+		// updates a server
+		public void update(Server server) throws Exception;
+		
+		// deletes a server
+		public void delete(String ipAddress) throws Exception; // delete by passing ip address
+		
+		// finds all servers, regardless of location
+		public List<Server> findAll() throws Exception;
+		
+		// finds cluster, will list location and number of servers at that location
+		public HashMap<String,Long> findCluster() throws Exception;
+		
+		// returns all servers found at a particular location
+		public List<Server> findAllByLocation(String location) throws Exception;
+		
+		// finds a server by looking for its IP Address
+		public Server findByIp(String ipAddress) throws Exception;
 	
 }
