@@ -12,8 +12,11 @@ import javax.persistence.Table;
 public class Server {
 
 	// define fields
-	
 	@Id
+	@Column(name="server_id")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer id;
+	
 	@Column(name="ip_address")
 	private String ipAddress;
 	

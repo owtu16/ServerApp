@@ -31,61 +31,82 @@ public class ServerRestController {
 
 	@PostMapping("/save")
 	public String saveServer(@ModelAttribute("server") Server server) throws Exception {
+		try {
+			serverService.save(server);
 
-		serverService.save(server);
-
-		return "redirect:/servers/list";
+			return "redirect:/servers/findall";
+		} catch (Exception e) {
+			throw new Exception("Error");
+		}
 
 	}
 
 	@PutMapping("/update")
 	public String updateServer(@ModelAttribute("server") Server server) throws Exception {
-		serverService.update(server);
+		try {
+			serverService.update(server);
 
-		return "redirect:/servers/list";
+			return "redirect:/servers/findall";
+		} catch (Exception e) {
+			throw new Exception("Error");
+		}
 	}
 
 	// deletes server by passing the IP Address
 	@DeleteMapping("/delete/{ipAddress}")
 	public String delete(@PathVariable(value = "ipAddress") String ip_address) throws Exception {
+		try {
+			serverService.delete(ip_address);
 
-		serverService.delete(ip_address);
-
-		return "Server with id " + ip_address + " has been deleted";
+			return "Server with id " + ip_address + " has been deleted";
+		} catch (Exception e) {
+			throw new Exception("Error");
+		}
 
 	}
 
 	// finds all servers regardless of location
-	@GetMapping("/findAll")
+	@GetMapping("/findall")
 	public List<Server> findAll() throws Exception {
-		List<Server> servers = serverService.findAll();
-		return servers;
+		try {
+			List<Server> servers = serverService.findAll();
+			return servers;
+		} catch (Exception e) {
+//			e.printStackTrace();
+			throw new Exception("Error");
+		}
 	}
-
-
 
 	// returns cluster of servers with location and # of servers at that particular
 	// location
 	@GetMapping("/cluster")
-	public HashMap<String,Long> findCluster(Model model) throws Exception {
+	public HashMap<String, Long> findCluster(Model model) throws Exception {
+		try {
+			HashMap<String, Long> servers = serverService.findCluster();
 
-		HashMap<String,Long> servers = serverService.findCluster();
+			model.addAttribute("servers", servers);
 
-		model.addAttribute("servers", servers);
-
-		return servers;
+			return servers;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Hello world");
+			throw new Exception("Error");
+		}
 
 	}
 
 	// find servers depending on their location
 	@GetMapping("/showServersByLocation/{location}")
 	public List<Server> serversList(@PathVariable(value = "location") String location, Model model) throws Exception {
-
-		// returns a list of server objects based on location
-		List<Server> servers = serverService.findAllByLocation(location);
-		model.addAttribute("servers", servers);
+		try {
+			// returns a list of server objects based on location
+			List<Server> servers = serverService.findAllByLocation(location);
+			model.addAttribute("servers", servers);
 //		return "/servers/servers-group";
-		return servers;
+			return servers;
+		} catch (Exception e) {
+			throw new Exception("Error");
+		}
 	}
 
 }

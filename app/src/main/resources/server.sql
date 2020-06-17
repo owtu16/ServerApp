@@ -7,21 +7,25 @@ DROP TABLE IF EXISTS server_tb;
 DROP TABLE IF EXISTS user_tb;
 
 CREATE TABLE server_tb(
-ip_address VARCHAR(15) NOT NULL,
-os_details VARCHAR(7) NOT NULL,
-location VARCHAR(10) NOT NULL
+server_id INT NOT NULL AUTO_INCREMENT,
+ip_address VARCHAR(15) NOT NULL DEFAULT '1.1.1.1',
+os_details VARCHAR(7) NOT NULL DEFAULT 'Linux',
+location VARCHAR(10) NOT NULL DEFAULT 'Texas'
+PRIMARY KEY(id)
 );
 
 CREATE TABLE user_tb(
-username VARCHAR(255) NOT NULL,
-password VARCHAR(255) NOT NULL
+user_id INT NOT NULL AUTO_INCREMENT,
+username VARCHAR(255),
+password VARCHAR(255) NOT NULL,
+PRIMARY KEY(id)
 );
 
-INSERT INTO user_tb VALUES
+INSERT INTO user_tb(username,password) VALUES
 ('admin','admin'),
 ('readonly','readonly');
 
- INSERT INTO server_tb VALUES
+ INSERT INTO server_tb(ip_address,os_details,location) VALUES
  ('12.12.89.23','Windows','Palo Alto'),
  ('23.1.23.19','Linux','Palo Alto'),
  ('23.83.48.12','Windows','Texas'),

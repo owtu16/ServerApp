@@ -7,10 +7,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.project.servers.app.entity.Server;
-
-public class ServDAOImpl implements ServerDAO {
+@Repository("servDAO")
+public class ServDAOImpl implements ServerDAO{
 
 	@Autowired
 	EntityManager entityManager;

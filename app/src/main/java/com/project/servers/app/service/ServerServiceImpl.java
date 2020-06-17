@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,49 +14,51 @@ import com.project.servers.app.entity.Server;
 @Service
 @Transactional
 public class ServerServiceImpl implements ServerService {
+	
 	@Autowired
+	@Qualifier("servDAO")
 	private ServerDAO serverDAO;
 
 	@Override
 	public void save(Server server) throws Exception {
-		// TODO Auto-generated method stub
+		serverDAO.save(server);
 		
 	}
 
 	@Override
 	public void update(Server server) throws Exception {
-		// TODO Auto-generated method stub
+		serverDAO.update(server);
 		
 	}
 
 	@Override
 	public void delete(String ipAddress) throws Exception {
-		// TODO Auto-generated method stub
+		serverDAO.delete(ipAddress);
 		
 	}
 
 	@Override
 	public List<Server> findAll() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return serverDAO.findAll();
 	}
 
 	@Override
 	public HashMap<String, Long> findCluster() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return serverDAO.findCluster();
 	}
 
 	@Override
 	public List<Server> findAllByLocation(String location) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return serverDAO.findAllByLocation(location);
 	}
 
 	@Override
 	public Server findByIp(String ipAddress) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return serverDAO.findByIp(ipAddress);
 	}
 
 	
