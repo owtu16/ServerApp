@@ -7,18 +7,18 @@ DROP TABLE IF EXISTS server_tb;
 DROP TABLE IF EXISTS user_tb;
 
 CREATE TABLE server_tb(
-server_id INT NOT NULL AUTO_INCREMENT,
-ip_address VARCHAR(15) NOT NULL DEFAULT '1.1.1.1',
-os_details VARCHAR(7) NOT NULL DEFAULT 'Linux',
-location VARCHAR(10) NOT NULL DEFAULT 'Texas'
-PRIMARY KEY(id)
+server_id INT(11) NOT NULL AUTO_INCREMENT,
+ip_address VARCHAR(15) NOT NULL,
+os_details VARCHAR(7) NOT NULL,
+location VARCHAR(10) NOT NULL,
+PRIMARY KEY(server_id)
 );
 
 CREATE TABLE user_tb(
-user_id INT NOT NULL AUTO_INCREMENT,
-username VARCHAR(255),
+user_id INT(11) NOT NULL AUTO_INCREMENT,
+username VARCHAR(255) NOT NULL,
 password VARCHAR(255) NOT NULL,
-PRIMARY KEY(id)
+PRIMARY KEY(user_id)
 );
 
 INSERT INTO user_tb(username,password) VALUES

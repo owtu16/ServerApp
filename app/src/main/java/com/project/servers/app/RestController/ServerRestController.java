@@ -30,7 +30,8 @@ public class ServerRestController {
 	private ServerService serverService;
 
 	@PostMapping("/save")
-	public String saveServer(@ModelAttribute("server") Server server) throws Exception {
+//	public String saveServer(@ModelAttribute("server") Server server) throws Exception {
+	public String saveServer(@RequestBody Server server) throws Exception {
 		try {
 			serverService.save(server);
 
@@ -41,12 +42,21 @@ public class ServerRestController {
 
 	}
 
-	@PutMapping("/update")
-	public String updateServer(@ModelAttribute("server") Server server) throws Exception {
+	@PutMapping("/update/{ip}")
+//	public String updateServer(@ModelAttribute("server") Server server) throws Exception {
+	public void updateServer(@PathVariable(value="ip") String ipAddress, @RequestBody Server server) throws Exception {
 		try {
+			Server dbserver = serverService.findByIp(ipAddress);
+			if(dbserver == null) {
+				throw new Exception("Server not found");
+			}
+			dbserver.setIpAddress(server.getIpAddress());
+			dbserver.setLocation(server.getLocation());
+			dbserver.setOsDetails(server.getOsDetails());
+			
 			serverService.update(server);
 
-			return "redirect:/servers/findall";
+//			return "redirect:/servers/findall";
 		} catch (Exception e) {
 			throw new Exception("Error");
 		}

@@ -20,19 +20,23 @@ public class ServDAOImpl implements ServerDAO{
 	public void save(Server server) {
 		// save or update the server
 		Server dbserver = entityManager.merge(server);
+		
+		
 		// update with ip address from server
 
-		server.setIpAddress(dbserver.getIpAddress());
+//		server.setIpAddress(dbserver.getIpAddress());
 
 	}
 
 	@Override
 	public void update(Server server) {
 		// save or update the server
+		
+//		Server dbserver = entityManager.find(Server.class, server.getIpAddress());
 		Server dbserver = entityManager.merge(server);
 		// update with ip address from server
 
-		server.setIpAddress(dbserver.getIpAddress());
+//		server.setIpAddress(dbserver.getIpAddress());
 
 	}
 
