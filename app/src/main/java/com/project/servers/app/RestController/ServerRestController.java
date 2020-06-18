@@ -3,7 +3,15 @@ package com.project.servers.app.RestController;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+//import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.project.servers.app.entity.Server;
 import com.project.servers.app.service.ServerService;
@@ -28,16 +37,25 @@ public class ServerRestController {
 
 	@Autowired
 	private ServerService serverService;
-
+	@Autowired
+	private Environment environment;
+	
+	static Logger logger = LogManager.getLogger(ServerRestController.class.getName());
+	
 	@PostMapping("/save")
 //	public String saveServer(@ModelAttribute("server") Server server) throws Exception {
-	public String saveServer(@RequestBody Server server) throws Exception {
+//	public String saveServer(@RequestBody Server server) throws Exception {
+	public ResponseEntity<String> saveServer(@RequestBody Server server) throws Exception{
+		
 		try {
+			logger.info("TRYING TO SAVE A NEW SERVER");
 			serverService.save(server);
-
-			return "redirect:/servers/findall";
+			String message = "ServerRestController.SERVER_ADDED";
+//			return "redirect:/servers/findall";
+			logger.info("SERVER REGISTRATION SUCCESSFUL WITH IP ADDRESS " + server.getIpAddress());
+			return new ResponseEntity<String>(environment.getProperty(message),HttpStatus.OK);
 		} catch (Exception e) {
-			throw new Exception("Error");
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, environment.getProperty(e.getMessage()));
 		}
 
 	}
@@ -63,7 +81,7 @@ public class ServerRestController {
 
 //			return "redirect:/servers/findall";
 		} catch (Exception e) {
-			throw new Exception("Error");
+			throw new Exception(environment.getProperty(e.getMessage()));
 		}
 	}
 
@@ -84,10 +102,14 @@ public class ServerRestController {
 	@GetMapping("/findall")
 	public List<Server> findAll() throws Exception {
 		try {
+			
+//			logger.error(environment.getProperty("ServerRestController.FIND_ALL_SERVERS"));
+			logger.info(environment.getProperty("ServerRestController.FIND_ALL_SERVERS"));
+			
 			List<Server> servers = serverService.findAll();
 			return servers;
 		} catch (Exception e) {
-//			e.printStackTrace();
+//			
 			throw new Exception("Error");
 		}
 	}
