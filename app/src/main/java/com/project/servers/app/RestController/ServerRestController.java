@@ -70,13 +70,13 @@ public class ServerRestController {
 	@PutMapping("update")
 	public ResponseEntity<String> updateServer(@RequestBody Server server) throws Exception{
 		try {
-		
+			logger.info("REQUEST TO UPDATE SERVER INITIATED BY USER");
 			Boolean serverExists = serverService.findByIp(server.getIpAddress());
 			
 			if(!serverExists)
 				throw new Exception("Server not found");
 			serverService.update(server);
-
+			logger.info("SERVER WITH IP ADDRESS " + server.getIpAddress() + " HAS BEEN UPDATED");
 			String successMsg = environment.getProperty("ServerRestController.SERVER_UPDATED");
 			
 
@@ -135,7 +135,7 @@ public class ServerRestController {
 		try {
 
 			map = serverService.findCluster();
-
+			logger.info("ServerRestController.FIND_CLUSTER");
 			model.addAttribute("servers", map);
 			
 			ResponseEntity<HashMap<String,Long>> response = new ResponseEntity<HashMap<String,Long>>(map,HttpStatus.OK);
@@ -155,7 +155,7 @@ public class ServerRestController {
 			// returns a list of server objects based on location
 			Boolean locationExists = serverService.findLocation(location);
 			if(!locationExists) {
-				throw new Exception("Deosn't exists");
+				throw new Exception("LOCATION DOESN'T EXIST");
 			}
 			list = serverService.findAllByLocation(location);
 			
