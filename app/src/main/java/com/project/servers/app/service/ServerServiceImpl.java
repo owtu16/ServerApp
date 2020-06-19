@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.project.servers.app.DAO.ServerDAO;
 import com.project.servers.app.entity.Server;
+import com.project.servers.app.validator.ServerValidator;
 
 @Service
 @Transactional
@@ -21,12 +22,14 @@ public class ServerServiceImpl implements ServerService {
 
 	@Override
 	public void save(Server server) throws Exception {
+		ServerValidator.validateServer(server);
 		serverDAO.save(server);
 		
 	}
 
 	@Override
 	public void update(Server server) throws Exception {
+		ServerValidator.validateServer(server);
 		serverDAO.update(server);
 		
 	}
@@ -68,8 +71,8 @@ public class ServerServiceImpl implements ServerService {
 	}
 
 	@Override
-	public Boolean findLocation(String location) { 
-		// TODO Auto-generated method stub
+	public Boolean findLocation(String location) throws Exception { 
+		
 		return serverDAO.findLocation(location);
 	}
 

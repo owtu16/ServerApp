@@ -23,10 +23,6 @@ public class ServDAOImpl implements ServerDAO {
 		// save or update the server
 		Server dbserver = entityManager.merge(server);
 
-		// update with ip address from server
-
-//		server.setIpAddress(dbserver.getIpAddress());
-
 	}
 
 	@Override
@@ -36,11 +32,11 @@ public class ServDAOImpl implements ServerDAO {
 		dbServer.setIpAddress(server.getIpAddress());
 		dbServer.setOsDetails(server.getOsDetails());
 		dbServer.setLocation(server.getLocation());
-//		Server dbserver = entityManager.find(Server.class, server.getIpAddress());
+
 		Server tempServer = entityManager.merge(dbServer);
 		// update with ip address from server
 
-//		server.setIpAddress(dbserver.getIpAddress());
+
 
 	}
 
@@ -71,11 +67,7 @@ public class ServDAOImpl implements ServerDAO {
 	@Override
 	public HashMap<String, Long> findCluster() {
 
-//		String sql = "SELECT s.location, COUNT(*) AS total FROM Server s GROUP BY s.location ORDER BY s.location DESC";
-//		
-//		Query q = entityManager.createQuery(sql);
-//		
-//		HashMap<String, Long> clusters = (HashMap<String, Long>) q.getResultList();
+
 		List<String> locationList = null;
 		List<Long> numberOfServersAtLocation = null;
 
@@ -113,7 +105,7 @@ public class ServDAOImpl implements ServerDAO {
 	}
 
 	@Override
-	public Server findById(Integer id) {
+	public Server findById(Integer id) throws Exception{
 		// returns a server by looking for its IP address
 		Server server = entityManager.find(Server.class, id);
 		
@@ -121,8 +113,8 @@ public class ServDAOImpl implements ServerDAO {
 	}
 
 	@Override
-	public Boolean findByIp(String ipAddress) {
-		// TODO Auto-generated method stub
+	public Boolean findByIp(String ipAddress) throws Exception{
+		
 		Boolean isPresent = false;
 		String ip = ipAddress;
 		List<String> result;
@@ -132,7 +124,7 @@ public class ServDAOImpl implements ServerDAO {
 		q.setParameter("ip", ip);
 		
 		result = q.getResultList();
-//		System.out.println("the result " + result);
+
 		
 		if(!(result.isEmpty())) {
 			isPresent = true;
@@ -142,7 +134,7 @@ public class ServDAOImpl implements ServerDAO {
 	}
 
 	@Override
-	public Boolean findLocation(String location) {
+	public Boolean findLocation(String location) throws Exception{
 		Boolean locationExists = false;
 		String sql = "from Server s where s.location ='"+location+"'";
 		List<String> result;

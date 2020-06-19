@@ -31,6 +31,6 @@ public interface ServerService {
 		// returns server based on the IP address
 		public Boolean findByIp(String ipAddress) throws Exception;
 
-		public Boolean findLocation(String location);
+		public Boolean findLocation(String location) throws Exception;
 	
 }

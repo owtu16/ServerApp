@@ -8,9 +8,9 @@ DROP TABLE IF EXISTS user_tb;
 
 CREATE TABLE server_tb(
 server_id INT(11) NOT NULL AUTO_INCREMENT,
-ip_address VARCHAR(15) NOT NULL,
-os_details VARCHAR(7) NOT NULL,
-location VARCHAR(10) NOT NULL,
+ip_address VARCHAR(20) NOT NULL,
+os_details VARCHAR(20) NOT NULL,
+location VARCHAR(20) NOT NULL,
 PRIMARY KEY(server_id)
 );
 
@@ -26,26 +26,26 @@ INSERT INTO user_tb(username,password) VALUES
 ('readonly','readonly');
 
  INSERT INTO server_tb(ip_address,os_details,location) VALUES
- ('12.12.89.23','Windows','Palo Alto'),
- ('23.1.23.19','Linux','Palo Alto'),
- ('23.83.48.12','Windows','Texas'),
- ('89.1.2.3','Linux','New Jersey'),
- ('10.2.3.12','Windows','Texas'),
- ('255.255.255.255','Linux','New Jersey'),
- ('231.21.12.38','Linux','New Jersey'),
- ('21.82.231.29','Windows','Palo Alto'),
- ('49.21.34.89','Linux','Texas'),
- ('1.3.89.2','Windows','Palo Alto'),
- ('29.245.21.28','Linux','New Jersey'),
- ('23.123.89.21','Windows','Texas'),
- ('23.89.47.123','Linux','Palo Alto'),
- ('34.21.48.82','Windows','New Jersey'),
- ('84.21.48.23','Linux','Texas'),
- ('112.23.8.2','Windows','New Jersey'),
- ('21.38.29.21','Linux','Palo Alto'),
- ('21.23.42.21','Windows','Texas'),
- ('92.22.48.21','Linux','New Jersey'),
- ('2.32.8.21','Windows','Texas');
+ ('192.168.1.1','Windows','Palo Alto'),
+ ('192.168.1.2','Linux','Palo Alto'),
+ ('192.168.1.3','Windows','Texas'),
+ ('192.168.1.4','Linux','New Jersey'),
+ ('192.168.1.5','Windows','Texas'),
+ ('192.168.1.6','Linux','New Jersey'),
+ ('192.168.1.7','Linux','New Jersey'),
+ ('192.168.1.8','Windows','Palo Alto'),
+ ('192.168.1.9','Linux','Texas'),
+ ('192.168.1.10','Windows','Palo Alto'),
+ ('192.168.1.11','Linux','New Jersey'),
+ ('192.168.1.12','Windows','Texas'),
+ ('192.168.1.13','Linux','Palo Alto'),
+ ('192.168.1.14','Windows','New Jersey'),
+ ('192.168.1.15','Linux','Texas'),
+ ('192.168.1.16','Windows','New Jersey'),
+ ('192.168.1.17','Linux','Palo Alto'),
+ ('192.168.1.18','Windows','Texas'),
+ ('192.168.1.19','Linux','New Jersey'),
+ ('192.168.1.20','Windows','Texas');
 
 SELECT * FROM server_tb;
 SELECT * FROM user_tb;
