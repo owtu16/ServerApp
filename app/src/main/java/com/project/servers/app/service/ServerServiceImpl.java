@@ -61,5 +61,17 @@ public class ServerServiceImpl implements ServerService {
 		return serverDAO.findById(id);
 	}
 
+	@Override
+	public Boolean findByIp(String ipAddress) throws Exception{
+		
+		return serverDAO.findByIp(ipAddress);
+	}
+
+	@Override
+	public Boolean findLocation(String location) { 
+		// TODO Auto-generated method stub
+		return serverDAO.findLocation(location);
+	}
+
 	
 }

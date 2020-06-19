@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Aspect
-public class LoggingAspect {
+public class LoggingAspect{
 
 	@AfterThrowing(pointcut="execution(* com.project.servers.app.DAO.*Impl.*(..))", throwing= "exception")
 	public void logExceptionFromDAO(Exception exception) throws Exception{

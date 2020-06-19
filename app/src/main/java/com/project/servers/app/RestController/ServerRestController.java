@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.persistence.EntityManager;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,7 +41,7 @@ public class ServerRestController {
 	@Autowired
 	private Environment environment;
 	
-	static Logger logger = LogManager.getLogger(ServerRestController.class.getName());
+	static Logger logger = LogManager.getLogger(ServerRestController.class);
 	
 	@PostMapping("/save")
 //	public String saveServer(@ModelAttribute("server") Server server) throws Exception {
@@ -48,11 +49,19 @@ public class ServerRestController {
 	public ResponseEntity<String> saveServer(@RequestBody Server server) throws Exception{
 		
 		try {
-			logger.info("TRYING TO SAVE A NEW SERVER");
+//			logger.info("TRYING TO SAVE A NEW SERVER");
+			logger.error("This is an error");
+			Boolean serverExists = serverService.findByIp(server.getIpAddress());
+//			System.out.println(serverExists);
+			if(serverExists) {
+//				throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Server already present");
+				throw new Exception("SERVER ALREADY EXISTS");
+			}
 			serverService.save(server);
 			String message = "ServerRestController.SERVER_ADDED";
 //			return "redirect:/servers/findall";
 			logger.info("SERVER REGISTRATION SUCCESSFUL WITH IP ADDRESS " + server.getIpAddress());
+//			logger.error("There was an error");
 			return new ResponseEntity<String>(environment.getProperty(message),HttpStatus.OK);
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, environment.getProperty(e.getMessage()));
@@ -62,86 +71,118 @@ public class ServerRestController {
 
 	@PutMapping("/update")
 //	public String updateServer(@ModelAttribute("server") Server server) throws Exception {
-	public void updateServer(@RequestBody Server server) throws Exception {
+//	public void updateServer(@RequestBody Server server) throws Exception {
+	public ResponseEntity<String> updateServer(@RequestBody Server server) throws Exception{
 		try {
-			Integer id = server.getId();
-			
-			Server dbserver = serverService.findById(id);
-			
 		
-			if(dbserver == null)
+			Boolean serverExists = serverService.findByIp(server.getIpAddress());
+			
+			if(!serverExists)
 				throw new Exception("Server not found");
+			serverService.update(server);
+//			Integer id = server.getId();
+//			Server dbserver = serverService.findById(id);
 //			
-//			String ip = dbserver.getIpAddress();
-			dbserver.setIpAddress(server.getIpAddress());
-			dbserver.setLocation(server.getLocation());
-			dbserver.setOsDetails(server.getOsDetails());
-			System.out.println(dbserver);
-			serverService.update(dbserver);
+////			String ip = dbserver.getIpAddress();
+//			dbserver.setIpAddress(server.getIpAddress());
+//			dbserver.setLocation(server.getLocation());
+//			dbserver.setOsDetails(server.getOsDetails());
+//			System.out.println(dbserver);
+//			serverService.update(dbserver);
 
+			String successMsg = environment.getProperty("ServerRestController.SERVER_UPDATED");
+			
 //			return "redirect:/servers/findall";
+			return new ResponseEntity<String>(successMsg, HttpStatus.OK);
 		} catch (Exception e) {
-			throw new Exception(environment.getProperty(e.getMessage()));
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, environment.getProperty(e.getMessage()));
 		}
 	}
 
 	// deletes server by passing the IP Address
 	@DeleteMapping("/delete/{ipAddress}")
-	public String delete(@PathVariable(value = "ipAddress") String ip_address) throws Exception {
+//	public String delete(@PathVariable(value = "ipAddress") String ip_address) throws Exception {
+	public ResponseEntity<String> delete(@PathVariable(value="ipAddress") String ip_address) throws Exception {
 		try {
+			Boolean serverExists = serverService.findByIp(ip_address);
+			
+			if(!serverExists) {
+				throw new Exception("Server is not present in the database!");
+			}
+			
+			logger.warn("Request to delete server with IP Address " + ip_address + " has been initiated");
 			serverService.delete(ip_address);
-
-			return "Server with id " + ip_address + " has been deleted";
+			logger.info("Server " + ip_address + " has been successfully deleted");
+			return new ResponseEntity<String>(environment.getProperty("ServerRestController.SERVER_DELETED"),HttpStatus.OK);
+			
 		} catch (Exception e) {
-			throw new Exception("Error");
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, environment.getProperty(e.getMessage()));
 		}
 
 	}
 
 	// finds all servers regardless of location
 	@GetMapping("/findall")
-	public List<Server> findAll() throws Exception {
+//	public List<Server> findAll() throws Exception {
+	public ResponseEntity<List<Server>> findAll() throws Exception{
+		List<Server> list = null;
 		try {
 			
 //			logger.error(environment.getProperty("ServerRestController.FIND_ALL_SERVERS"));
 			logger.info(environment.getProperty("ServerRestController.FIND_ALL_SERVERS"));
 			
-			List<Server> servers = serverService.findAll();
-			return servers;
+//			List<Server> servers = serverService.findAll();
+			list = serverService.findAll();
+			ResponseEntity<List<Server>> response = new ResponseEntity<List<Server>>(list,HttpStatus.OK);
+			return response;
 		} catch (Exception e) {
 //			
-			throw new Exception("Error");
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,environment.getProperty(e.getMessage()));
 		}
 	}
 
 	// returns cluster of servers with location and # of servers at that particular
 	// location
 	@GetMapping("/cluster")
-	public HashMap<String, Long> findCluster(Model model) throws Exception {
+//	public HashMap<String, Long> findCluster(Model model) throws Exception {
+	public ResponseEntity<HashMap<String,Long>> findCluster(Model model) throws Exception{
+		HashMap<String,Long> map = null;
 		try {
-			HashMap<String, Long> servers = serverService.findCluster();
+//			HashMap<String, Long> servers = serverService.findCluster();
+			map = serverService.findCluster();
 
-			model.addAttribute("servers", servers);
-
-			return servers;
+			model.addAttribute("servers", map);
+			
+			ResponseEntity<HashMap<String,Long>> response = new ResponseEntity<HashMap<String,Long>>(map,HttpStatus.OK);
+			return response;
 		} catch (Exception e) {
 			
-			throw new Exception("Error");
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,environment.getProperty(e.getMessage()));
 		}
 
 	}
 
 	// find servers depending on their location
 	@GetMapping("/showServersByLocation/{location}")
-	public List<Server> serversList(@PathVariable(value = "location") String location, Model model) throws Exception {
+//	public List<Server> serversList(@PathVariable(value = "location") String location, Model model) throws Exception {
+	public ResponseEntity<List<Server>> serversList(@PathVariable(value = "location") String location, Model model) throws Exception {
+		List<Server> list = null;
 		try {
 			// returns a list of server objects based on location
-			List<Server> servers = serverService.findAllByLocation(location);
-			model.addAttribute("servers", servers);
+//			List<Server> servers = serverService.findAllByLocation(location);
+			Boolean locationExists = serverService.findLocation(location);
+			if(!locationExists) {
+				throw new Exception("Deosn't exists");
+			}
+			list = serverService.findAllByLocation(location);
+			
+			model.addAttribute("servers", list);
+			
+			ResponseEntity<List<Server>> response = new ResponseEntity<List<Server>>(list,HttpStatus.OK);
 //		return "/servers/servers-group";
-			return servers;
+			return response;
 		} catch (Exception e) {
-			throw new Exception("Error");
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,environment.getProperty(e.getMessage()));
 		}
 	}
 

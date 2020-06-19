@@ -28,5 +28,9 @@ public interface ServerService {
 		
 		// finds a server by looking for its IP Address
 		public Server findById(Integer id) throws Exception;
+		// returns server based on the IP address
+		public Boolean findByIp(String ipAddress) throws Exception;
+
+		public Boolean findLocation(String location);
 	
 }

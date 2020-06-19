@@ -28,6 +28,10 @@ public interface ServerDAO {
 	
 	// finds a server by looking for its IP Address
 	public Server findById(Integer id);
+	// finds a server by its IP address
+	public Boolean findByIp(String ipAddress);
+
+	public Boolean findLocation(String location);
 
 	
 	

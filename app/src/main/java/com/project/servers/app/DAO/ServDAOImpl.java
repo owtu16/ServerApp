@@ -32,9 +32,12 @@ public class ServDAOImpl implements ServerDAO {
 	@Override
 	public void update(Server server) {
 		// save or update the server
-
+		Server dbServer = entityManager.find(Server.class, server.getId());
+		dbServer.setIpAddress(server.getIpAddress());
+		dbServer.setOsDetails(server.getOsDetails());
+		dbServer.setLocation(server.getLocation());
 //		Server dbserver = entityManager.find(Server.class, server.getIpAddress());
-		Server dbserver = entityManager.merge(server);
+		Server tempServer = entityManager.merge(dbServer);
 		// update with ip address from server
 
 //		server.setIpAddress(dbserver.getIpAddress());
@@ -113,7 +116,43 @@ public class ServDAOImpl implements ServerDAO {
 	public Server findById(Integer id) {
 		// returns a server by looking for its IP address
 		Server server = entityManager.find(Server.class, id);
+		
 		return server;
+	}
+
+	@Override
+	public Boolean findByIp(String ipAddress) {
+		// TODO Auto-generated method stub
+		Boolean isPresent = false;
+		String ip = ipAddress;
+		List<String> result;
+		String sql = "select s.ipAddress from Server s where s.ipAddress =: ip";
+		
+		Query q = entityManager.createQuery(sql);
+		q.setParameter("ip", ip);
+		
+		result = q.getResultList();
+//		System.out.println("the result " + result);
+		
+		if(!(result.isEmpty())) {
+			isPresent = true;
+		}
+		
+		return isPresent;
+	}
+
+	@Override
+	public Boolean findLocation(String location) {
+		Boolean locationExists = false;
+		String sql = "from Server s where s.location ='"+location+"'";
+		List<String> result;
+		Query q = entityManager.createQuery(sql);
+		result = q.getResultList();
+		
+		if(!(result.isEmpty())) {
+			locationExists = true;
+		}
+		return locationExists;
 	}
 
 }

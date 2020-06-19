@@ -3,24 +3,30 @@
 	<Appender>
 		<!-- File Appender -->
 		<File name="FileAppender" fileName="logs/error.log">
-			<PatternLayout pattern="%d{yyyy-MMM-dd} HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n" />
+			<PatternLayout
+				pattern="%d{yyyy-MMM-dd} HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n" />
 		</File>
-		
+
 		<Console name="OutputAppender">
 			<PatternLayout pattern="%msg%n" />
 		</Console>
 	</Appender>
-	
+
 	<Loggers>
 		<Root level="ERROR">
 			<AppenderRef ref="FileAppender" />
 		</Root>
-		<Logger name="com.project.servers.app.RestController" level="INFO" additivity="false">
+		<Logger name="com.project.servers.app.RestController"
+			level="INFO" additivity="false">
 			<AppenderRef ref="OutputAppender" />
 		</Logger>
-		
-		<Logger name="com.project.servers.app.utility" level="ERROR" additivity="false">
+
+		<Logger name="com.project.servers.app.utility" level="ERROR"
+			additivity="false">
 			<AppenderRef ref="FileAppender" />
 		</Logger>
 	</Loggers>
 </Configuration>
+
+
+<!-- log4j2.xml -->

@@ -20,10 +20,10 @@ public class ServerDAOImpl implements ServerDAO {
 
 	@Override
 	public List<Server> findAllByLocation(String location) {
-		String var_location = location;
-		String sql = "from Server s where s.location =: serverLocation";
+//		String var_location = location;
+		String sql = "from Server s where s.location =: '"+location+"'";
 		Query q = entityManager.createQuery(sql);
-		q.setParameter("serverLocation", var_location);
+//		q.setParameter("serverLocation", var_location);
 		List<Server> serverByLocation = q.getResultList();
 		return serverByLocation;
 	}
@@ -118,9 +118,33 @@ public class ServerDAOImpl implements ServerDAO {
 	}
 
 	@Override
-	public Server findByIp(String ipAddress) {
+	public Server findById(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Boolean findByIp(String ipAddress) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+//	@Override
+//	public Server findByIp(String ipAddress) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public Server findById(Integer id) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public Boolean findByIp(String ipAddress) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 }
