@@ -72,9 +72,9 @@ public class ServDAOImpl implements ServerDAO {
 		List<Long> numberOfServersAtLocation = null;
 
 		String sqlLocation = "SELECT s.location FROM Server s GROUP BY s.location ORDER BY s.location DESC";
-		Query qLocation = entityManager.createQuery(sqlLocation);
-
 		String sqlNumberOfServers = "SELECT COUNT(*) AS total FROM Server s GROUP BY s.location ORDER BY s.location DESC";
+		
+		Query qLocation = entityManager.createQuery(sqlLocation);
 		Query qNumberOfServers = entityManager.createQuery(sqlNumberOfServers);
 
 		locationList = qLocation.getResultList();
@@ -94,16 +94,37 @@ public class ServDAOImpl implements ServerDAO {
 	}
 
 	@Override
-	public List<Server> findAllByLocation(String location) {
+	public HashMap<String, String> findAllByLocation(String location) {
 		// use hashmap here
 		// implement how you want 
 		// find all servers found at a particular location
-		String var_location = location;
-		String sql = "from Server s where s.location =: serverLocation";
-		Query q = entityManager.createQuery(sql);
-		q.setParameter("serverLocation", var_location);
-		List<Server> serverByLocation = q.getResultList();
-		return serverByLocation;
+//		String var_location = location;
+//		String sql = "from Server s where s.location =: serverLocation";
+//		Query q = entityManager.createQuery(sql);
+//		q.setParameter("serverLocation", var_location);
+//		List<Server> serverByLocation = q.getResultList();
+//		return serverByLocation;
+		List<String> l1 = null;
+		List<String> l2 = null;
+		
+		String sql = "SELECT s.ipAddress FROM Server s WHERE s.location = '"+location+"' GROUP BY s.ipAddress ORDER BY s.ipAddress DESC";
+		String sql2 = "SELECT s.osDetails FROM Server s WHERE s.location = '"+location+"' GROUP BY s.ipAddress ORDER BY s.ipAddress DESC";
+		
+		Query qIp = entityManager.createQuery(sql);
+		Query qOs = entityManager.createQuery(sql2);
+		
+		l1 = qIp.getResultList();
+		l2 = qOs.getResultList();
+		
+		Iterator<String> i1 = l1.iterator();
+		Iterator<String> i2 = l2.iterator();
+		
+		HashMap<String, String> result = new HashMap<>();
+		
+		while(i1.hasNext() && i2.hasNext()) {
+			result.put(i1.next(), i2.next());
+		}
+		return result;
 	}
 
 	@Override
@@ -113,6 +134,8 @@ public class ServDAOImpl implements ServerDAO {
 		
 		return server;
 	}
+	
+	
 
 	@Override
 	public Boolean findByIp(String ipAddress){

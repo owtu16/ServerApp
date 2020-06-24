@@ -53,7 +53,7 @@ public class ServerServiceImpl implements ServerService {
 	}
 
 	@Override
-	public List<Server> findAllByLocation(String location) throws Exception {
+	public HashMap<String, String> findAllByLocation(String location) throws Exception {
 		
 		return serverDAO.findAllByLocation(location);
 	}

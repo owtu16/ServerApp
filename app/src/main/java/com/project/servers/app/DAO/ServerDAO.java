@@ -24,7 +24,7 @@ public interface ServerDAO {
 	public HashMap<String,Long> findCluster();
 	
 	// returns all servers found at a particular location
-	public List<Server> findAllByLocation(String location);
+	public HashMap<String, String> findAllByLocation(String location);
 	
 	// finds a server by looking for its IP Address
 	public Server findById(Integer id);

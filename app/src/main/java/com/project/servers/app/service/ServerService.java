@@ -24,7 +24,7 @@ public interface ServerService {
 		public HashMap<String,Long> findCluster() throws Exception;
 		
 		// returns all servers found at a particular location
-		public List<Server> findAllByLocation(String location) throws Exception;
+		public HashMap<String,String> findAllByLocation(String location) throws Exception;
 		
 		// finds a server by looking for its IP Address
 		public Server findById(Integer id) throws Exception;
