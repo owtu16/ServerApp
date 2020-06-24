@@ -22,8 +22,8 @@ PRIMARY KEY(user_id)
 );
 
 INSERT INTO user_tb(username,password) VALUES
-('admin','admin'),
-('readonly','readonly');
+('admin','8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918'),
+('readonly','8171bacf32668a8f44b90087ad107ed63170f57154763ba7e44047bf9e5a7be3');
 
  INSERT INTO server_tb(ip_address,os_details,location) VALUES
  ('192.168.1.1','Windows','Palo Alto'),
