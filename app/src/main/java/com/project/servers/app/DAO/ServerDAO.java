@@ -27,11 +27,11 @@ public interface ServerDAO {
 	public List<Server> findAllByLocation(String location);
 	
 	// finds a server by looking for its IP Address
-	public Server findById(Integer id) throws Exception;
+	public Server findById(Integer id);
 	// finds a server by its IP address
-	public Boolean findByIp(String ipAddress) throws Exception;
+	public Boolean findByIp(String ipAddress);
 
-	public Boolean findLocation(String location) throws Exception;
+	public Boolean findLocation(String location);
 
 	
 	

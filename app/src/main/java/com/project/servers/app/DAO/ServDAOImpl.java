@@ -95,6 +95,8 @@ public class ServDAOImpl implements ServerDAO {
 
 	@Override
 	public List<Server> findAllByLocation(String location) {
+		// use hashmap here
+		// implement how you want 
 		// find all servers found at a particular location
 		String var_location = location;
 		String sql = "from Server s where s.location =: serverLocation";
@@ -105,7 +107,7 @@ public class ServDAOImpl implements ServerDAO {
 	}
 
 	@Override
-	public Server findById(Integer id) throws Exception{
+	public Server findById(Integer id){
 		// returns a server by looking for its IP address
 		Server server = entityManager.find(Server.class, id);
 		
@@ -113,7 +115,7 @@ public class ServDAOImpl implements ServerDAO {
 	}
 
 	@Override
-	public Boolean findByIp(String ipAddress) throws Exception{
+	public Boolean findByIp(String ipAddress){
 		
 		Boolean isPresent = false;
 		String ip = ipAddress;
@@ -134,7 +136,7 @@ public class ServDAOImpl implements ServerDAO {
 	}
 
 	@Override
-	public Boolean findLocation(String location) throws Exception{
+	public Boolean findLocation(String location){
 		Boolean locationExists = false;
 		String sql = "from Server s where s.location ='"+location+"'";
 		List<String> result;
