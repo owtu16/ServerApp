@@ -34,7 +34,7 @@ import com.project.servers.app.validator.ServerValidator;
 
 //@CrossOrigin
 @RestController
-@RequestMapping("servers")
+@RequestMapping("/servers")
 public class ServerRestController {
 
 	@Autowired
@@ -44,7 +44,7 @@ public class ServerRestController {
 	
 	static Logger logger = LogManager.getLogger(ServerRestController.class);
 	
-	@PostMapping("save")
+	@PostMapping("/save")
 	public ResponseEntity<String> saveServer(@RequestBody Server server) throws Exception{
 		
 		try {
@@ -67,7 +67,7 @@ public class ServerRestController {
 
 	}
 
-	@PutMapping("update")
+	@PutMapping("/update")
 	public ResponseEntity<String> updateServer(@RequestBody Server server) throws Exception{
 		try {
 			logger.info("REQUEST TO UPDATE SERVER INITIATED BY USER");
@@ -87,7 +87,7 @@ public class ServerRestController {
 	}
 
 	// deletes server by passing the IP Address
-	@DeleteMapping("delete/{ipAddress}")
+	@DeleteMapping("/delete/{ipAddress}")
 	public ResponseEntity<String> delete(@PathVariable(value="ipAddress") String ip_address) throws Exception {
 		try {
 			Boolean serverExists = serverService.findByIp(ip_address);
@@ -108,7 +108,7 @@ public class ServerRestController {
 	}
 
 	// finds all servers regardless of location
-	@GetMapping("findall")
+	@GetMapping("/findall")
 	public ResponseEntity<List<Server>> findAll() throws Exception{
 		List<Server> list = null;
 		try {
@@ -129,15 +129,16 @@ public class ServerRestController {
 
 	// returns cluster of servers with location and # of servers at that particular
 	// location
-	@GetMapping("cluster")
+	@GetMapping("/cluster")
 	public ResponseEntity<HashMap<String,Long>> findCluster(Model model) throws Exception{
 		HashMap<String,Long> map = null;
 		try {
+//			System.err.println("Start");
 
 			map = serverService.findCluster();
 			logger.info("ServerRestController.FIND_CLUSTER");
 			model.addAttribute("servers", map);
-			
+//			System.err.println("END");
 			ResponseEntity<HashMap<String,Long>> response = new ResponseEntity<HashMap<String,Long>>(map,HttpStatus.OK);
 			return response;
 		} catch (Exception e) {
@@ -148,7 +149,7 @@ public class ServerRestController {
 	}
 
 	// find servers depending on their location
-	@GetMapping("showServersByLocation/{location}")
+	@GetMapping("/showServersByLocation/{location}")
 	public ResponseEntity<List<Server>> serversList(@PathVariable(value = "location") String location, Model model) throws Exception {
 		List<Server> list = null;
 		try {
@@ -165,7 +166,9 @@ public class ServerRestController {
 			
 			return response;
 		} catch (Exception e) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,environment.getProperty(e.getMessage()));
+//			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,environment.getProperty(e.getMessage()));
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Location entered is not available", e);
+//			throw new Exception("This is a bad request");
 		}
 	}
 
