@@ -36,6 +36,7 @@ import com.project.servers.app.validator.ServerValidator;
 
 //@CrossOrigin
 @RestController
+@CrossOrigin
 @RequestMapping("/servers")
 public class ServerRestController {
 
@@ -115,6 +116,7 @@ public class ServerRestController {
 	// finds all servers regardless of location
 	@GetMapping(path="/findall", produces= { MediaType.APPLICATION_XML_VALUE, 
 			MediaType.APPLICATION_JSON_VALUE })
+//	@GetMapping(path="/findall")
 	public ResponseEntity<List<Server>> findAll() throws Exception{
 		List<Server> list = null;
 		try {
