@@ -176,10 +176,9 @@ public class ServerRestController {
 			return response;
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,environment.getProperty(e.getMessage()));
-//			e.printStackTrace();
-//			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Location entered is not available", e);
-//			System.out.println(e.getMessage());
-//			throw new Exception("This is a bad request");
+			/*This is going to be 
+			 * a multiline comment that will
+			 * interfere with the other comment*/
 		}
 	}
 
