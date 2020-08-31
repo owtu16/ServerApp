@@ -176,7 +176,11 @@ public class ServerRestController {
 			return response;
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,environment.getProperty(e.getMessage()));
-			//This is a comment
+
+			/*This is going to be 
+			 * a multiline comment that will
+			 * interfere with the other comment*/
+
 		}
 	}
 
